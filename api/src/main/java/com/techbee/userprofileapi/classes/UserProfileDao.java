@@ -12,20 +12,10 @@ import org.springframework.stereotype.Component;
 public class UserProfileDao {
 
 
-	/*final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-	final String DB_URL = "jdbc:mysql://userdb.czqmlpibq7qv.us-east-2.rds.amazonaws.com:3306/userdb";
-	final String USER = "admin";
-	final String PASS = "Mavs11ar";*/
-	
-	Connection conn = null;
 	ArrayList<UserProfile> users = new ArrayList<>();
-	int userId = 0;
-
+	
 	public void addUser(UserProfile user) {
-		
-			/*user.setUserProfileId(userId);
-			userId++;
-			users.add(user);*/
+			users.add(user);
 		
 	}
 
@@ -45,9 +35,17 @@ public class UserProfileDao {
 	}
 
 	public void updateUser(UserProfile user) {
-		int index = users.indexOf(user);
-		users.remove(users.indexOf(user));
-		users.add(index, user);
+//		int index = users.indexOf(user);
+//		users.remove(users.indexOf(user));
+		
+		for(int i = 0; i < users.size(); i++) {
+			if(users.get(i).getUserProfileId() == user.getUserProfileId()){
+				users.remove(i);
+				users.add(i, user);
+				break;
+			}
+		}
+		
 	}
 
 	public boolean deleteUser(int userId) {
